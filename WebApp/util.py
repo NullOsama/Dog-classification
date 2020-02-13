@@ -143,8 +143,8 @@ standard_normalization = transforms.Normalize(mean=[0.485, 0.456, 0.406],
 
 
 def load_model():
+    # Loaded only once
     model_transfer = models.resnet101(pretrained=True)
-
     if use_cuda:
         model_transfer = model_transfer.cuda()
     for param in model_transfer.parameters():
@@ -175,3 +175,17 @@ def predict_breed_transfer(model, img_path):
     model.eval()
     idx = torch.argmax(model(img))
     return class_names[idx]
+
+def predict(model_transfer, img_path):
+    ## handle cases for a human face, dog, and neither
+    img = Image.open(img_path)
+    plt.imshow(img)
+    plt.show()
+    if dog_detector(img_path):
+        prediction = predict_breed_transfer(model_transfer, class_names, img_path)
+        return "Dog Detected!. It's a {0}".format(prediction)
+    elif face_detector(img_path):
+        prediction = predict_breed_transfer(model_transfer, class_names, img_path)
+        return "Human detected!. Youre resembling dog breed is {0}".format(prediction)
+    else:
+        return "Error! Can't detect anything.."
