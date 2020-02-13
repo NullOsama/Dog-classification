@@ -20,7 +20,7 @@ def upload():
 
 @app.route('/uploader', methods = ['GET', 'POST'])
 def uploader():
-    # save the single "profile" file
+    # save the uploaded image and apply transformation, then predict.
     if request.method == 'POST':
         profile = request.files['file']
         save_at = os.path.join(uploads_dir, profile.filename)

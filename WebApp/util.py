@@ -143,6 +143,10 @@ standard_normalization = transforms.Normalize(mean=[0.485, 0.456, 0.406],
 
 
 def load_model():
+    """
+    Loads the ResNet model, modify it, and then return it.
+    Returns: nn.Module model
+    """
     # Loaded only once
     model_transfer = models.resnet101(pretrained=True)
     if use_cuda:
@@ -159,6 +163,13 @@ def load_model():
     return model_transfer
 
 def load_input_image(img_path):    
+    """
+    apply transformations on the image stored at img_path, then returns it as tensor
+    
+    Inputs: path for the image to be transformed
+    
+    Returns: transformed image represnted using tensor
+    """
     image = Image.open(img_path).convert('RGB')
     prediction_transform = transforms.Compose([transforms.Resize(size=(224, 224)),
                                      transforms.ToTensor(), 
@@ -169,6 +180,13 @@ def load_input_image(img_path):
     return image
 
 def predict_breed_transfer(model, img_path):
+    """
+    predict the class name of the given image using passed model.
+    
+    Inputs: pytorch model and image path.
+    
+    Returns: Class name of the given image 
+    """
     # load the image and return the predicted breed
     img = load_input_image(img_path)
     model = model.cpu()
@@ -177,6 +195,15 @@ def predict_breed_transfer(model, img_path):
     return class_names[idx]
 
 def predict(model_transfer, img_path):
+    """
+    Creat sutable output for each case: dog, human, niether.
+    
+    Inputs: PyTorch model
+    PyTorch model and an image path
+    
+    Returns: string
+    output message for each case: dog, human, niether.
+    """
     ## handle cases for a human face, dog, and neither
     img = Image.open(img_path)
     plt.imshow(img)
