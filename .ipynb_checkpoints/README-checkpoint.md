@@ -9,9 +9,9 @@ In this project, I have created a web application that is capable of determining
 ## Required Packages
 
 Please make sure to have the following packages installed on youre system:
-[PyTorch](https://pytorch.org/) using ```bash pip install pytorch ```
-[torchvision](https://pytorch.org/docs/stable/torchvision/index.html) using ```bash pip install torchvision ```
-[Flask](https://www.palletsprojects.com/p/flask/) using ```bash pip install flask ```
+[PyTorch](https://pytorch.org/) using ```pip install pytorch ```
+[torchvision](https://pytorch.org/docs/stable/torchvision/index.html) using ```pip install torchvision ```
+[Flask](https://www.palletsprojects.com/p/flask/) using ```pip install flask ```
 
 
 ## Techinques
